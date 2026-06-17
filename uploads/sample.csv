@@ -1,0 +1,7 @@
+order_id,phone_number,country,order_date
+1,9876543210,India,2025-04-15
+2,12345678,Singapore,2025-04-10
+3,9876543210,USA,2025-05-01
+4,12345678901,UK,2025-03-25
+5,12345,India,2025-04-20
+6,99999999,Singapore,wrongdate
