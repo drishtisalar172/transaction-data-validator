@@ -5,14 +5,13 @@ from datetime import datetime
 
 app = Flask(__name__)
 
-UPLOAD_FOLDER = "uploads"
-OUTPUT_FOLDER = "output"
+# Vercel temporary storage
+UPLOAD_FOLDER = "/tmp/uploads"
+OUTPUT_FOLDER = "/tmp/output"
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(OUTPUT_FOLDER, exist_ok=True)
 
-
-# Phone validation rules
 PHONE_RULES = {
     "India": 10,
     "Singapore": 8,
@@ -62,6 +61,9 @@ def home():
 @app.route("/", methods=["POST"])
 def upload_file():
 
+    if "file" not in request.files:
+        return "No file uploaded"
+
     file = request.files["file"]
 
     if file.filename == "":
@@ -103,7 +105,6 @@ def upload_file():
 
     df.to_csv(output_file, index=False)
 
-    # Split CSV into chunks
     split_csv(df)
 
     return send_file(
